@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import establishWebSocketConnection from "../../../code/connection_functions";
 
-const QRScanner = () => {
+const QRScanner = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -16,6 +17,15 @@ const QRScanner = () => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+
+    // Проверяем, что данные начинаются с "ws://" или "wss://"
+    if (data.startsWith("ws://") || data.startsWith("wss://")) {
+      console.log("Считанный код: ", data);
+      establishWebSocketConnection((serverAddress = data));
+      navigation.navigate("HomeScreen");
+    } else {
+      alert("Invalid WebSocket address in the QR code");
+    }
   };
 
   const renderCamera = () => {
