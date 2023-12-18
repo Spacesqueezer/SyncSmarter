@@ -5,10 +5,9 @@ const establishWebSocketConnection = async (
   serverAddress,
   onMessage = () => {},
   onClose = () => {},
-  onOpen = () => {}
+  onOpen = () => {},
 ) => {
   try {
-
     const ws =
       typeof HermesWebSocket !== "undefined"
         ? new HermesWebSocket(serverAddress)

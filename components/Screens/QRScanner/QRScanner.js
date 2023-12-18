@@ -22,7 +22,7 @@ const QRScanner = ({ navigation }) => {
     // Проверяем, что данные начинаются с "ws://" или "wss://"
     if (data.startsWith("ws://") || data.startsWith("wss://")) {
       console.log("Считанный код: ", data);
-      establishWebSocketConnection((serverAddress = data));
+      // establishWebSocketConnection((serverAddress = data));
       storeData("serverAddress", data);
       navigation.navigate("HomeScreen");
     } else {
